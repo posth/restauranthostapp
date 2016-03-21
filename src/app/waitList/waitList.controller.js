@@ -8,35 +8,26 @@
         .controller('WaitListController', WaitListController);
     
     //Adding a dependency to the WaitListController function - this dependency comes from the angularfire.min.js
-    WaitListController.$inject = ['$firebaseArray'];
+    //Last injection is the Party service 
+    WaitListController.$inject = ['FIREBASE_URL', 'partyService'];
     
-    function WaitListController($firebaseArray) {
+    function WaitListController(FIREBASE_URL, partyService) {
         //vm is for view model - this way we can reference this instance of our controller in different places in the code and it will be explicit that it is vm - we know we're pointing to the object instance of this controller - anything that is saved on vm will be accessible in the view
         var vm = this;
         
         //Make a connection to firebase database you have setup at firebase 
         //Added the parties extension to the firebase URL to organize the data a bit more
-        var fireParties = new Firebase('https://waitandeatposth.firebaseio.com/parties');
+        //This is commented out since it's beeing brought in by the injected partyService service at the top - refactored
+        //        var fireParties = new Firebase(FIREBASE_URL + 'parties');
         
         //Where we'll be saving our text messages
-        var fireTextMessages = new Firebase('https://waitandeatposth.firebaseio.com/textMessages');
-        
-        //Constructor function
-        function Party() {
-            this.name = '';
-            this.phone = '';
-            this.size = '';
-            //Has this party been served?
-            this.done = false;
-            //Have they received a SMS message?
-            this.notified = false;
-        }
-        
-        //New Party constructor
-        vm.newParty = new Party();
+        var fireTextMessages = new Firebase(FIREBASE_URL + 'textMessages');
+                
+        //New Party constructor from the injected service
+        vm.newParty = new partyService.Party();
         
         //Wrap data inside an angular service, which is the dependency injected - placed it inside the vm object with this method so that it can be referenced inside the HTML
-        vm.parties = $firebaseArray(fireParties);       
+        vm.parties = partyService.parties;
         
         //To save this function to the view model so that the view can access it in the HTML
         vm.addParty = addParty;
@@ -55,7 +46,7 @@
             vm.parties.$add(vm.newParty);
             
             //This will clear the form after you add a party
-            vm.newParty = new Party();
+            vm.newParty = new partyService.Party();
         }
         
         function removeParty(party) {

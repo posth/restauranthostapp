@@ -7,15 +7,16 @@
         .controller('AuthController', AuthController);
     
     //Inject the dependency of the firebase authentication
-    AuthController.$inject = ['$location', '$firebaseAuth'];
+    //Also injected our own service for the FIREBASE_URL from the constants 
+    AuthController.$inject = ['$location', '$firebaseAuth', 'FIREBASE_URL'];
     
-    function AuthController($location, $firebaseAuth) {
+    function AuthController($location, $firebaseAuth, FIREBASE_URL) {
         
         //Angular style guide recommendation - so we know exactly what this is referring to 
         var vm = this;
         
         //Firebase references to be able to connect to the firebase application
-        var firebaseReference = new Firebase('https://waitandeatposth.firebaseio.com/');
+        var firebaseReference = new Firebase(FIREBASE_URL);
         
         //Create firebase auth object, and will have all firebase authentication methods on it
         var firebaseAuthObject = $firebaseAuth(firebaseReference);
