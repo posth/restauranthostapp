@@ -15,8 +15,8 @@
             var service = {
                 //To allow accessing the constructor
                 Party: Party,
-                //Property to give access to firebase parties - firebaseArray takes in a firebaseDataService (object) - the child method makes it go a data level deeper in firebase, which in this case is parties
-                parties: $firebaseArray(firebaseDataService.root.child('parties'))
+                //Property which uses function below to get parties based on unique user id
+                getPartiesByUser: getPartiesByUser
             };
             
             return service;
@@ -32,6 +32,11 @@
                 this.done = false;
                 //Have they received a SMS message?
                 this.notified = false;
+            }
+            
+            //This function gives us individual party objects, using the waitListController to get parties based on particlar user's id
+            function getPartiesByUser(uid) {
+                return $firebaseArray(firebaseDataService.users.child(uid).child('parties'));
             }
             
         }

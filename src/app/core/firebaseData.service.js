@@ -14,7 +14,10 @@
         
         //Making the firebase object available to this service 
         var service = {
-            root: root
+            root: root,
+            users: root.child('users'),
+            //Child method allows to go one level deeper in firebase data
+            textMessages: root.child('textMessages')
         };
         
         return service;

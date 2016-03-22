@@ -27,8 +27,8 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#/login">Log in</a></li>
-                        <li><a href="" ng-click="vm.logout()">Log out</a></li>
+                        <li><a href="#/login" ng-hide="vm.isLoggedIn()">Log in</a></li>
+                        <li><a href="" ng-click="vm.logout()" ng-show="vm.isLoggedIn()">Log out</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -61,12 +61,14 @@
         <script src="app/auth/auth.module.js"></script>
         <script src="app/auth/config.route.js"></script>
         <script src="app/auth/auth.controller.js"></script>
+        <script src="app/auth/auth.service.js"></script>
         
         <!-- core module -->
         <script src="app/core/core.module.js"></script>
         <script src="app/core/constants.js"></script>
         <script src="app/core/party.service.js"></script>
         <script src="app/core/firebaseData.service.js"></script>
+        <script src="app/core/textMessage.service.js"></script>
     </body>
 
 </html>
