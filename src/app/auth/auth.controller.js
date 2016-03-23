@@ -24,12 +24,7 @@
         
         //Adding the login function to the view model in the HTML
         vm.login = login;
-        
-        vm.logout = logout;
-        
-        //enabling the view to have access to the isLoggedIn method taken from the injected service into this controller
-        vm.isLoggedIn = authService.isLoggedIn;
-        
+                
         function register(user) {
             //$createUser is a method that firebaseAuth provides, which takes a user object
             return authService.register(user)
@@ -61,13 +56,6 @@
             });
         }
         
-        function logout() {
-
-            authService.logout();
-            
-            //Redirecting users after logging out
-            $location.path('/');
-        }
     }
     
 })();
