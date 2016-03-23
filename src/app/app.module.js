@@ -16,6 +16,30 @@
         'app.auth',
         'app.core',
         'app.layout'
-    ]);   
+    ])
+    .config(configFunction)
+    .run(runFunction);   
+    
+    configFunction.$inject = ['$routeProvider'];
+    
+    //code to handle URLS we don't know about
+    function configFunction($routeProvider) {
+        
+        $routeProvider.otherwise({
+           redirectTo: '/' 
+        });
+    }
+    
+    //injecting angular services - rootScope
+    runFunction.$inject = ['$rootScope', '$location'];
+    
+    //listens for route change errors, and when it finds it will send users back to the landing page
+    function runFunction($rootScope, $location) {
+        $rootScope.$on('$routeChangeError', function(event, next, previous, error){
+           if (error === "AUTH_REQUIRED") {
+               $location.path('/');
+           } 
+        });
+    }
       
 })();

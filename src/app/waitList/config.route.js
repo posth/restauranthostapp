@@ -22,6 +22,8 @@
     //Injected to the function below the authService
     resolveUser.$inject = ['authService'];
     
+    
+    //ensures you are logged in before it loads the controller
     function resolveUser(authService) {
         //if the user is logged in, it will return the logged in user
         return authService.firebaseAuthObject.$requireAuth();

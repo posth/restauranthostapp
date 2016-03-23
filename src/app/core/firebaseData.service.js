@@ -16,6 +16,7 @@
         var service = {
             root: root,
             users: root.child('users'),
+            emails: root.child('emails'),
             //Child method allows to go one level deeper in firebase data
             textMessages: root.child('textMessages')
         };

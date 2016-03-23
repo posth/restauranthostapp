@@ -34,6 +34,10 @@
                 //Run a success function - then. 
                     vm.login(user);
                 })
+                //send welcome email
+                .then(function() {
+                    return authService.sendWelcomeEmail(user.email);
+                })
                 .catch(function(error){
                 //2. Error: Firebase can't create the new user because the username already exists, for example
                 //Run an error function - catch.
