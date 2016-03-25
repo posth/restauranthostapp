@@ -6,9 +6,9 @@
         .factory('authService', authService);
     
     //Injecting the firebase auth service
-    authService.$inject = ['$firebaseAuth', 'firebaseDataService'];
+    authService.$inject = ['$firebaseAuth', 'firebaseDataService', 'partyService'];
     
-    function authService($firebaseAuth, firebaseDataService) {
+    function authService($firebaseAuth, firebaseDataService, partyService) {
         
         //firebaseDataService root property that is returned from the service is the firebase URL
         var firebaseAuthObject = $firebaseAuth(firebaseDataService.root);
@@ -39,6 +39,7 @@
         }
         
         function logout(user) {
+            partyService.reset();
             //Firebase method again to logout user
             return firebaseAuthObject.$unauth();
         }

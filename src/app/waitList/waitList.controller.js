@@ -18,15 +18,9 @@
         
         //Log user to the console
         console.log(user);
-                
-        //New Party constructor from the injected service
-        vm.newParty = new partyService.Party();
         
         //Wrap data inside an angular service, which is the dependency injected - placed it inside the vm object with this method so that it can be referenced inside the HTML
         vm.parties = partyService.getPartiesByUser(user.uid);
-        
-        //To save this function to the view model so that the view can access it in the HTML
-        vm.addParty = addParty;
         
         //Removing the party - calling a function defined at the bottom of the file
         vm.removeParty = removeParty;
@@ -36,15 +30,7 @@
         
         //Toggle done
         vm.toggleDone = toggleDone;
-        
-        function addParty() {
-            //Method in firebaseArrays is $add which will add the new party 
-            vm.parties.$add(vm.newParty);
-            
-            //This will clear the form after you add a party
-            vm.newParty = new partyService.Party();
-        }
-        
+
         function removeParty(party) {
             //Firebase array has remove method - need to provide it a record/index
             vm.parties.$remove(party);

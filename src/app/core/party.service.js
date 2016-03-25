@@ -12,11 +12,14 @@
     
         function partyService($firebaseArray, firebaseDataService) {
             
+            var parties = null;
+            
             var service = {
                 //To allow accessing the constructor
                 Party: Party,
                 //Property which uses function below to get parties based on unique user id
-                getPartiesByUser: getPartiesByUser
+                getPartiesByUser: getPartiesByUser,
+                reset: reset
             };
             
             return service;
@@ -36,7 +39,21 @@
             
             //This function gives us individual party objects, using the waitListController to get parties based on particlar user's id
             function getPartiesByUser(uid) {
-                return $firebaseArray(firebaseDataService.users.child(uid).child('parties'));
+                // If parties is null, then we create a $firebaseArray and set it equal to parties so that it isn't null anymore
+                if (!parties) {
+                    parties = $firebaseArray(firebaseDataService.users.child(uid).child('parties'));    
+                }
+                return parties;
+            }
+            
+            function reset() {
+                // purpose is to break the connection established by the $firebaseArray
+                if (parties) {
+                    //firebase method
+                    parties.$destroy();
+                    //reset the service to the way it was before
+                    parties = null;
+                }
             }
             
         }
