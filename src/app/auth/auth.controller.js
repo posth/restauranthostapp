@@ -18,6 +18,9 @@
             email: '',
             password: ''
         };
+        
+        //for error messages
+        vm.error = null;
      
         //Expose the function to the HTML view
         vm.register = register;
@@ -41,7 +44,7 @@
                 .catch(function(error){
                 //2. Error: Firebase can't create the new user because the username already exists, for example
                 //Run an error function - catch.
-                    console.log(error);
+                    vm.error = error;
                 });
         }    
         
@@ -56,7 +59,7 @@
             })
                 .catch(function(error){
                 //Error function
-                console.log(error);
+                vm.error = error;
             });
         }
         

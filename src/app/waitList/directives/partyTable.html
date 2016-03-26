@@ -1,0 +1,38 @@
+<!--ng-repeat directive, you give it data that you want to iterate over - it will go over all the parties in a for loop style in the given party variable -->
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Done?</th>
+            <th>Info</th>
+            <th>Notifed?</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tr ng-repeat="party in vm.parties">
+        
+        <td>
+            <!-- Want to bind the value of the checkbox input to the party.done - directives used, everytime it's changed, it triggers a function - instead of being triggered by a click, it's triggered by a value in the checkbox -->
+            <input type="checkbox" ng-model="party.done" ng-change="vm.toggleDone(party)">
+        </td>
+        
+        <!-- Information Column -->
+        <td>
+            <div>{{ party.name }} {{ party.size }} people</div>
+            <div>{{ party.phone }}</div>
+        </td>
+        
+        <!-- Notified? Column  -->
+        <td>
+            <!-- Can use terniary operator (basic javascript) - if the notified property is true, then the value in this cell will be Yes -->
+            <div>{{ party.notified ? 'Yes' : 'No' }}</div>
+        </td>
+        
+        <!-- Actions column -->
+        <td>
+            <!--  Button that sends text message to party using the click directive -->
+            <button ng-click="vm.sendTextMessage(party)" class="btn btn-success">Send SMS</button>
+            <!--  Party to remove party - We have access to the particular party the button is attached to thanks to the ng-repeat directive-->
+            <button ng-click="vm.removeParty(party)" class="btn btn-danger">Remove</button>
+        </td>
+    </tr>
+</table>
