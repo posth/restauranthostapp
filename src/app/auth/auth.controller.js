@@ -14,10 +14,7 @@
         //Angular style guide recommendation - so we know exactly what this is referring to 
         var vm = this;
         
-        vm.user = {
-            email: '',
-            password: ''
-        };
+     
         
         //for error messages
         vm.error = null;
